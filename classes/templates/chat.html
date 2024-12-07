@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Box</title>
+    <style>
+        /* General Styling for the Chat Box */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        #chat-box {
+            width: 100%;
+            max-width: 500px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Chat Messages Container */
+        #chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            background-color: #e0f7fa; /* Light cyan background for chat messages */
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #b0bec5;
+            font-size: 16px;
+            line-height: 1.5;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Individual Chat Message Styling */
+        p {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #e0f7fa; /* Light cyan background for Bot's messages */
+            color: #333;
+            font-weight: bold;
+            position: relative;
+        }
+
+        p::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        p.both {
+            margin-left: 0;
+        }
+
+        p.both::before {
+            border-width: 0 10px 10px 0;
+            border-color: transparent #e0f7fa transparent transparent;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        p.bot {
+            background-color: #a7ffeb; /* Light green background for Bot's messages */
+        }
+
+        p.bot::before {
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent #a7ffeb transparent;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        p b {
+            color: #00796b; /* Teal color for "You" and "Bot" labels */
+        }
+
+        p b:nth-of-type(2) {
+            color: #004d40; /* Darker teal color for the Bot label */
+        }
+
+        /* Styling for the input form */
+        form {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #b0bec5;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #00796b;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #00796b;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #004d40;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #00796b;
+            padding: 15px 20px;
+            color: #fff;
+            font-size: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .navbar a:hover {
+            color: #b0bec5;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #004d40;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="{% url 'base1' %}">Fluentia</a>
+    <div>
+        <a href="{% url 'base1' %}">Home</a>
+        {% if user.is_authenticated %}
+            <span>Hello, {{ user.username }}!</span>
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="header">
+    <h1>Welcome to the Chat Bot</h1>
+    <p>Connect and Communicate: Your Language Learning Chatbot</p>
+</div>
+
+<div id="chat-box">
+    <div id="chat-messages">
+        <!-- Displaying previous chat -->
+        <p class="both"><b>You:</b> {{ user_input }}</p>
+        <p class="bot"><b>Bot:</b> {{ bot_response }}</p>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="user_input" placeholder="Type your message" required>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    // Optional: For smooth scrolling to the bottom of the chat box after each message
+    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+</script>
+
+</body>
+</html>

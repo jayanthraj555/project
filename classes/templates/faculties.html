@@ -1,0 +1,87 @@
+<!-- project/templates/faculties.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculties</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            padding: 20px 0;
+            background-color: #e9ecef;
+            margin: 0;
+        }
+        .faculty-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .faculty-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: 250px;
+            margin: 10px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .faculty-card:hover {
+            transform: translateY(-5px);
+        }
+        .faculty-card h3 {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #343a40;
+        }
+        .faculty-card p {
+            font-size: 14px;
+            color: #6c757d;
+            text-align: left;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Faculties</h1>
+<div class="faculty-container">
+    {% if faculties %}
+        {% for faculty in faculties %}
+            <div class="faculty-card">
+                <h3>{{ faculty.name }}</h3>
+                <p>{{ faculty.description }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <!-- Default Faculty Data -->
+        <div class="faculty-card">
+            <h3>Dr. Hiroshi Tanaka</h3>
+            <p>Expert in Japanese linguistics with 15 years of teaching experience.</p>
+        </div>
+        <div class="faculty-card">
+            <h3>Ms. Claire Dupont</h3>
+            <p>Native French speaker specializing in conversational and business French.</p>
+        </div>
+        <div class="faculty-card">
+            <h3>Mr. Miguel Santos</h3>
+            <p>Spanish literature scholar with a passion for immersive teaching methods.</p>
+        </div>
+        <div class="faculty-card">
+            <h3>Dr. Ingrid Müller</h3>
+            <p>German language and culture expert with extensive teaching credentials.</p>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

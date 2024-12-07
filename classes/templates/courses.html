@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course List</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* Background image */
+        body {
+            background-image: url("{% static 'images/image3.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Navbar styles */
+        .navbar-custom {
+            background-color: rgba(0, 0, 0, 0.7); /* Dark background with transparency */
+        }
+
+        .navbar-custom .navbar-brand {
+            color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .navbar-custom .nav-link {
+            color: #f8f9fa;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-custom .nav-link:hover {
+            color: #3498db; /* Highlight color on hover */
+        }
+
+        /* Container for the course list */
+        .course-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+
+        /* Individual course card (rectangular) */
+        .course-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        /* Title for each course */
+        .course-card h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* Course card text */
+        .course-card p {
+            font-size: 1em;
+            color: #7f8c8d;
+        }
+
+        /* Styling for links */
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 600;
+            padding: 10px 15px;
+            border: 2px solid #3498db;
+            border-radius: 25px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        /* Hover effect for the course card */
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hover effect for links */
+        a:hover {
+            background-color: #3498db;
+            color: white;
+        }
+
+        /* Small screens and responsive adjustments */
+        @media (max-width: 768px) {
+            .course-list {
+                max-width: 100%;
+                padding: 15px;
+            }
+
+            .navbar-custom {
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+
+            .navbar-custom .navbar-brand {
+                font-size: 1.2em;
+            }
+
+            .course-card h2 {
+                font-size: 1.5em;
+            }
+
+            .course-card p {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Fluentia</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Only show Home if we're on the courses page -->
+                    {% if request.path == '/courses/' %}
+                        <!-- Only show Home link when on the courses page -->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'base1' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'online_classes' %}">Online Classes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'assignments' %}">Assignments</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'base1' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'online_classes' %}">Online Classes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'assignments_list' %}">Assignments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'exercise_selection' %}">Practise Exercises</a>
+                        </li>
+                    {% endif %}
+                </ul>
+
+                <!-- Conditionally show username and logout option if user is logged in -->
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link">Hello, {{ user.username }}!</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Course List -->
+<div class="course-list">
+    {% for course in courses %}
+        <div class="course-card">
+            <h2>{{ course.title }}</h2>
+            {% if course.id in registered_courses %}
+                <a href="{% url 'course_material' course.id %}" class="btn btn-primary">View Course Material</a>
+            {% else %}
+                <form method="post" action="{% url 'register_course' course.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Register</button>
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+    <!--<div class="course-list">-->
+        <!-- Individual course cards displayed as rectangular boxes -->
+    <!--    <div class="course-card">-->
+    <!--        <h2>Course 1: JAPANESE LANGUAGE</h2>-->
+    <!--        <a href="https://www.nhk.or.jp/lesson/update/pdf/leall_en_t.pdf" target="_blank">PDF</a>-->
+    <!--        <a href="https://www.youtube.com/watch?v=rGrBHiuPlT0&list=PL4071737C12790477" target="_blank">VIDEO</a>-->
+    <!--    </div>-->
+
+    <!--    <div class="course-card">-->
+    <!--        <h2>Course 2: FRENCH LANGUAGE</h2>-->
+    <!--        <a href="https://upload.wikimedia.org/wikipedia/commons/6/63/French.pdf" target="_blank">PDF</a>-->
+    <!--        <a href="https://youtu.be/cctA8tkRY3M?si=-TEig7xOFyITfoFb" target="_blank">VIDEO</a>-->
+    <!--    </div>-->
+
+    <!--    <div class="course-card">-->
+    <!--        <h2>Course 3: SPANISH LANGUAGE</h2>-->
+    <!--        <a href="https://fsi-languages.yojik.eu/languages/DLI/Spanish/Basic%20Course/Textbook%2001%20Less%2001-10.pdf" target="_blank">PDF</a>-->
+    <!--        <a href="https://www.youtube.com/watch?v=Fkoansd4Ni0&list=PLYitpHBq-8SXrpjOHu6nU60Uq6QQ6NpIH" target="_blank">VIDEO</a>-->
+    <!--    </div>-->
+
+    <!--    <div class="course-card">-->
+    <!--        <h2>Course 4: GERMAN LANGUAGE</h2>-->
+    <!--        <a href="https://mercaba.org/SANLUIS/IDIOMAS/Alem%C3%A1n/Basic%20german.pdf" target="_blank">PDF</a>-->
+    <!--        <a href="https://www.youtube.com/watch?v=RuGmc662HDg&list=PLF9mJC4RrjIhS4MMm0x72-qWEn1LRvPuW" target="_blank">VIDEO</a>-->
+    <!--    </div>-->
+    <!--</div>-->
+
+</body>
+</html>

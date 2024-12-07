@@ -1,0 +1,185 @@
+<!-- exercise_selection.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercise Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        #exercises {
+            margin-top: 20px;
+        }
+
+        .exercise {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .exercise h2 {
+            color: #444;
+        }
+
+        .exercise label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .exercise input[type="text"], .exercise textarea, .exercise select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .exercise button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .exercise button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select an Exercise and Language</h1>
+    <ul>
+        <li><a href="#" onclick="showExercise('vocabulary')">Vocabulary</a></li>
+        <li><a href="#" onclick="showExercise('speaking')">Speaking</a></li>
+        <li><a href="#" onclick="showExercise('grammar')">Grammar</a></li>
+    </ul>
+
+    <div id="exercises">
+        <!-- Vocabulary Exercise -->
+        <div id="vocabulary" class="exercise">
+            <h2>Vocabulary Practice</h2>
+            <label for="language">Choose a language:</label>
+            <select id="language" onchange="showVocabularyForm()">
+                <option value="">Select...</option>
+                <option value="japanese">Japanese</option>
+                <option value="french">French</option>
+                <option value="spanish">Spanish</option>
+                <option value="german">German</option>
+            </select>
+            <div id="vocabulary_form" style="display: none;">
+                <form action="{% url 'submit_vocabulary' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="word">Translate the following word:</label>
+                    <input type="text" id="word" name="word" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Speaking Exercise -->
+        <div id="speaking" class="exercise">
+            <h2>Speaking Practice</h2>
+            <label for="language">Choose a language:</label>
+            <select id="language" onchange="showSpeakingForm()">
+                <option value="">Select...</option>
+                <option value="japanese">Japanese</option>
+                <option value="french">French</option>
+                <option value="spanish">Spanish</option>
+                <option value="german">German</option>
+            </select>
+            <div id="speaking_form" style="display: none;">
+                <form action="{% url 'submit_speaking' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="sentence">Record your response:</label>
+                    <textarea id="sentence" name="sentence" rows="4" required></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Grammar Exercise -->
+        <div id="grammar" class="exercise">
+            <h2>Grammar Practice</h2>
+            <label for="language">Choose a language:</label>
+            <select id="language" onchange="showGrammarForm()">
+                <option value="">Select...</option>
+                <option value="japanese">Japanese</option>
+                <option value="french">French</option>
+                <option value="spanish">Spanish</option>
+                <option value="german">German</option>
+            </select>
+            <div id="grammar_form" style="display: none;">
+                <form action="{% url 'submit_grammar' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="sentence">Fill in the blank:</label>
+                    <input type="text" id="sentence" name="sentence" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showExercise(exercise) {
+            // Hide all exercises
+            document.querySelectorAll('.exercise').forEach(function(e) {
+                e.style.display = 'none';
+            });
+
+            // Show the selected exercise
+            document.getElementById(exercise).style.display = 'block';
+        }
+
+        function showVocabularyForm() {
+            var language = document.getElementById('language').value;
+            document.getElementById('vocabulary_form').style.display = language ? 'block' : 'none';
+        }
+
+        function showSpeakingForm() {
+            var language = document.getElementById('language').value;
+            document.getElementById('speaking_form').style.display = language ? 'block' : 'none';
+        }
+
+        function showGrammarForm() {
+            var language = document.getElementById('language').value;
+            document.getElementById('grammar_form').style.display = language ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

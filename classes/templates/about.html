@@ -1,0 +1,113 @@
+<!-- project/templates/about.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+            margin-top: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #495057;
+            margin-top: 40px;
+            font-size: 24px;
+        }
+        .navbar {
+            background-color: #007bff;
+            padding: 10px;
+            text-align: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .navbar a:hover {
+            background-color: #0056b3;
+        }
+        .courses-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .courses-list li {
+            display: inline;
+            margin: 0 15px;
+        }
+        .faculty-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 40px;
+        }
+        .faculty-card {
+            background-color: white;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 15px;
+            width: 300px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .faculty-card h3 {
+            color: #343a40;
+            margin: 5px 0;
+        }
+        .faculty-card p {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h1>About Us</h1>
+    <ul class="courses-list">
+        <li><a href="{% url 'base1' %}">Home</a></li>
+        <li><a href="{% url 'courses' %}">Courses</a></li>
+        <li><a href="{% url 'schedules' %}">Schedules</a></li>
+        <li><a href="{% url 'faculties' %}">Faculties</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <p>
+        Welcome to our Language Learning Platform! Here, you can learn Japanese, French, Spanish, and German through engaging courses. Our platform offers course registration, online classes, assignments, practice exercises, and more. Whether you're looking to improve your speaking skills, prepare for travel, or master a new language, we've got the resources to help you succeed.
+    </p>
+    <p>
+        Our interactive exercises are designed to enhance your understanding and proficiency in the target language. You can practice speaking, listening, and writing skills through quizzes, assignments, and real-time feedback from instructors. With our user-friendly interface, you can easily navigate through different lessons, track your progress, and set personalized learning goals.
+    </p>
+    <p>
+        Join our global community of language learners and connect with students from around the world. Participate in online classes, group discussions, and virtual study sessions. Our dedicated faculty members provide expert guidance and support, helping you achieve fluency in no time. Start your journey today and unlock a world of opportunities with our comprehensive language courses.
+    </p>
+    <p>
+        We understand that learning a new language involves more than just memorizing vocabulary and grammar rules. Our platform integrates cultural insights, interactive dialogues, and multimedia resources to give you a holistic learning experience. Whether you are a beginner or an advanced learner, our courses are tailored to meet your needs, with the flexibility to learn at your own pace. Start your language learning journey today and broaden your horizons with our diverse range of courses.
+    </p>
+    <p>
+        Explore the world of language learning with us and take the first step towards fluency. Our platform is designed to be your personal language assistant, guiding you through every step of your learning process. Join our community and embark on a linguistic adventure that opens doors to new cultures, opportunities, and personal growth. Start your journey now and discover the joy of mastering a new language.
+    </p>
+</div>
+
+</body>
+</html>

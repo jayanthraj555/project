@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            margin: 0 auto;
+            border-radius: 5px;
+            max-width: 350px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            margin-right: 10px;
+            text-align: right;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: calc(100% - 120px); /* Adjusting the width to fit next to the label */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .additional-options {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .additional-options a {
+            display: inline-block;
+            margin: 10px;
+            color: #007bff;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .additional-options a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Register Page</h1>
+
+    <!-- Registration Form -->
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username:</label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            {{ form.password }}
+        </div>
+        <input type="submit" value="Register">
+    </form>
+
+    <!-- Additional Options -->
+    <div class="additional-options">
+        <a href="/reset-password">Reset Password</a>
+        <a href="/">Home Page</a>
+        <a href="/help">Need Help?</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2024 Your Website. All rights reserved.</p>
+    </div>
+
+</body>
+</html>

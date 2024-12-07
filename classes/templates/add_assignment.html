@@ -1,0 +1,26 @@
+<!-- add_assignment.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Assignment</title>
+</head>
+<body>
+    <h1>Add New Assignment</h1>
+    <form action="{% url 'save_assignment' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+        </div>
+        <div>
+            <label for="due_date">Due Date:</label>
+            <input type="date" id="due_date" name="due_date" required>
+        </div>
+        <button type="submit">Save Assignment</button>
+    </form>
+</body>
+</html>
